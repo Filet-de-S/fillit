@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 12:47:28 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/07 18:04:28 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:23:32 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,11 @@ int		fil(int fd, int a, char *line)
 		tm = ft_strjoin(tt, line);//+add free
 		free(tt);
 		tt = tm;
+		if (!tt[++i] && nt > 26)
+			
 		while (tt[++i])
 		{
+
 			if (i == 15 && tt[i] == '\n')
 			{
 				nt++;
