@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:57:03 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/06 14:22:46 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/07 17:35:12 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # define BUFF_SIZE 1024
 # define CHECK(x) if (!(x)) return (-1)
+# define ERR(x) if (x == -1) return (-1)
 # define SFJN(t, cnt, bu) t = cnt; CHECK(cnt = ft_strjoin(cnt, bu)); free(t)
 
 typedef struct		s_list

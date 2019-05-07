@@ -2,7 +2,8 @@
 T = tetramino;
 
 0) check for ac == 2;
-1)	Go and check all T for its valid values: by reading all the file.
+1)	Go and check all T for its valid values: by reading the file and check 
+	whem.
 																				
 	1. make a T checker with all possible combinations by .txt? 
 		calculate 1-26;
@@ -10,14 +11,7 @@ T = tetramino;
 	2. create a buffer with translated T to A, B..
 	3. place up, left. for first horiz, or vert...
 	
-					    ## 		#
-	1. #### 3. ##	4. ##	5. ##
-				##			   #
-	   #	
-	   #
-	   #
-	2. #
-
+	
 2)	Translate every new tetra to Ax4.
 
 

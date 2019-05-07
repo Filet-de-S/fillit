@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 12:47:28 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/07 16:54:57 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/07 18:04:28 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,11 @@ int		lstoper(t_list **new, char *tt, int nt)
 			break ;
 		tmp = tmp->next;
 	}
-	ft(
-	tmp
+	CHECK(tmp = (t_list*)malloc(sizeof(t_list)));
+	CHECK(tmp->content = ft_strdup(tt));
+	tmp->content_size = nt;
+	tmp->next = NULL;
+	ft_lstadd(left, tmp);
 }
 
 int		fil(int fd, int a, char *line)
@@ -51,10 +54,12 @@ int		fil(int fd, int a, char *line)
 			{
 				nt++;
 				lstoper(&new, tt, nt);
+				i = 0;
 			}
+			if (i == 16)
+				return (-1);
 			if (nt > 26)
 				return (-1);//++free APE
-
 		}
 	}
 	return (-1);
