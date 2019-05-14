@@ -1,6 +1,6 @@
 NAME = fillit
 
-SRC = main.c \ 
+SRC = main.c 
 
 OBJ = $(SRC:.c=.o)
 
@@ -8,7 +8,7 @@ all: $(NAME)
 
 $(NAME):
 	make -C lib/
-	gcc -o $(NAME) $(SRC) -I lib/includes -L lib/ -lft
+	gcc -g -Wall -Wextra -Werror $(SRC) -I lib/includes -L lib/ -lft -o $(NAME)
 
 clean:
 	rm -f $(OBJ)

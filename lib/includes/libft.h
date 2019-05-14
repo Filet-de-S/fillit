@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/04/11 19:57:03 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/07 17:35:12 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:32:04 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <fcntl.h>
 # define BUFF_SIZE 1024
 # define CHECK(x) if (!(x)) return (-1)
 # define ERR(x) if (x == -1) return (-1)

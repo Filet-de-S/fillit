@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 12:47:28 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/14 15:00:53 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/14 16:25:59 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int		lastch(char *tt)
 	while (tt[++i])
 		if (tt[i] == '#')
 		{
-			if ((i + 4) < 20 && tt[i + 4] == '#')
+			if ((i + 5) < 20 && tt[i + 5] == '#')
 				c++;
-			if ((i - 4) > -1 && tt[i - 4] == '#')
+			if ((i - 5) > -1 && tt[i - 5] == '#')
 				c++;
 			if ((i + 1) < 20 && tt[i + 1] == '#')
 				c++;
@@ -41,11 +41,11 @@ int		lstoper(t_list **tetra, char *tt, int nt)
 	t_list	*tmp;
 	int		s;
 	
-	CHECK(c = lastch(tt));
+	CHECK(s = lastch(tt));
 	tmp = *tetra;
 	while (tmp)
 	{
-		if ((int)tmp->content_size = nt)
+		if ((int)tmp->content_size == nt)
 			break ;
 		tmp = tmp->next;
 	}
@@ -53,7 +53,7 @@ int		lstoper(t_list **tetra, char *tt, int nt)
 	CHECK(tmp->content = ft_strsplit(tt, '\n'));
 	tmp->content_size = nt;
 	tmp->next = NULL;
-	ft_lstadd(left, tmp);
+	ft_lstadd(tetra, tmp);
 	return (1);
 }
 
@@ -61,16 +61,15 @@ int		checkmatet(char *tt, int *nt, int *st, t_list **tetra)
 {
 	int i;
 	int a;
-	int n;
 
 	a = 0;
-	i = 0;
-	st = 0;
+	i = -1;
+	*st = 0;
 	if (tt[20] == '\n')
-		st = 1;
+		*st = 1;
 	while(tt[++i] && i < 20)
 	{
-		if (tt[i] != '.' || tt[i] != '#' || tt[i] != '\n')
+		if (tt[i] != '.' && tt[i] != '#' && tt[i] != '\n')
 			return (-1);
 		if (tt[i] == '#' || tt[i] == '\n')
 			a++;
@@ -79,8 +78,8 @@ int		checkmatet(char *tt, int *nt, int *st, t_list **tetra)
 		a++;
 	if (a != 9)
 		return (-1);
-	ERR(lstoper(*tetra, tt, nt));
-	nt++;
+	ERR(lstoper(tetra, tt, *nt));
+	(*nt)++;
 	return (0);
 }
 
@@ -114,6 +113,7 @@ int		fil(int fd, int a, int st, t_list **tetra)
 	{
 		if (a == -1 || a < 20)
 			FREERET(tetra, &tt);
+		tt[a] = '\0';
 		if ((a = checkmatet(tt, &nt, &st, tetra)) == -1)
 			FREERET(tetra, &tt);
 		if (nt > 26)
@@ -138,9 +138,12 @@ int		main(int ac, char **av)
 		if ((fd = open(av[1], O_RDONLY)) == -1)
 			ERROR;
 		a = 0;
+		st = 0;
 		st = fil(fd, a, st, &tetra);
 		if (close(fd) == -1 || st == -1)
+		{
 			ERROR;
+		}
 		else
 		{
 			free(tetra);
