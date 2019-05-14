@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 12:47:28 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/14 14:03:05 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/14 15:00:53 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int		lastch(char *tt)
 				c++;
 		}
 	if (c < 6)
-		return (-1);
-	return (0);
+		return (0);
+	return (1);
 }
 
-int		lstoper(t_list **new, char *tt, int nt)
+int		lstoper(t_list **tetra, char *tt, int nt)
 {
 	t_list	*tmp;
 	int		s;
 	
-	lastch(tt);
-	tmp = *new;
+	CHECK(c = lastch(tt));
+	tmp = *tetra;
 	while (tmp)
 	{
 		if ((int)tmp->content_size = nt)
@@ -54,6 +54,7 @@ int		lstoper(t_list **new, char *tt, int nt)
 	tmp->content_size = nt;
 	tmp->next = NULL;
 	ft_lstadd(left, tmp);
+	return (1);
 }
 
 int		checkmatet(char *tt, int *nt, int *st, t_list **tetra)
@@ -70,7 +71,7 @@ int		checkmatet(char *tt, int *nt, int *st, t_list **tetra)
 	while(tt[++i] && i < 20)
 	{
 		if (tt[i] != '.' || tt[i] != '#' || tt[i] != '\n')
-			return (-1);//free
+			return (-1);
 		if (tt[i] == '#' || tt[i] == '\n')
 			a++;
 	}
@@ -78,51 +79,73 @@ int		checkmatet(char *tt, int *nt, int *st, t_list **tetra)
 		a++;
 	if (a != 9)
 		return (-1);
-	lstoper(*tetra, tt, nt);
+	ERR(lstoper(*tetra, tt, nt));
 	nt++;
 	return (0);
 }
 
-int		fil(int fd, int a, int st, int nt)
+void	friwka(t_list **tetra, char **tt)
+{
+	t_list *tmp;
+	t_list *t;
+
+	free(*tt);
+	*tt = NULL;
+	tmp = *tetra;
+	while (tmp)
+	{
+		t = tmp->next;
+		free(tmp);
+		tmp = NULL;
+		tmp = t;
+	}
+}
+
+int		fil(int fd, int a, int st, t_list **tetra)
 {
 	char	*tt;
 	int		i;
-	t_list	*tetra;
+	int		nt;
 	
+	nt = 0;
 	CHECK(tt = ft_strnew(21));
 	i = -1;
 	while ((a = read(fd, tt, 21)))
 	{
 		if (a == -1 || a < 20)
-			return (-1);//free
-		checkmatet(tt, &nt, &st, &tetra);
+			FREERET(tetra, &tt);
+		if ((a = checkmatet(tt, &nt, &st, tetra)) == -1)
+			FREERET(tetra, &tt);
 		if (nt > 26)
-			return (-1);//free
+			FREERET(tetra, &tt);
 	}
 	if (nt < 1)
-		return (-1);
+		FREERET(tetra, &tt);
 	if (st == 1)
-		return (-1);//free
+		FREERET(tetra, &tt);
 	return (0);
 }
 
 int		main(int ac, char **av)
 {
-	int fd;
-	int st;
-	int a;
-	int	nt;
+	int		fd;
+	int		st;
+	int		a;
+	t_list	*tetra;
 
 	if (ac == 2)
 	{
 		if ((fd = open(av[1], O_RDONLY)) == -1)
 			ERROR;
 		a = 0;
-		line = NULL;
-		nt = 0;
-		st = fil(fd, a, st, nt);
+		st = fil(fd, a, st, &tetra);
 		if (close(fd) == -1 || st == -1)
 			ERROR;
+		else
+		{
+			free(tetra);
+			ft_putstr("ok");
+		}
 		return (0);
 	}
 	ft_putstr("usage: ./fillit target_file\n");
