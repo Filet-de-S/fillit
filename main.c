@@ -6,40 +6,42 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 12:47:28 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/10 20:40:22 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/14 14:03:05 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fil.h"
 
-int		conmi(char *tt)
+int		lastch(char *tt)
 {
-	int	i;
-	int fl;
+	int i;
+	int c;
 
-	i = 0;
-	fl = 0;
-	while (tt[i])
-	{
+	c = 0;
+	i = -1;
+	while (tt[++i])
 		if (tt[i] == '#')
 		{
-			if ((i + 1) < 16 && tt[i + 1] == '#')
-				fl = i + 1;
-			if ((i + 4) < 16 && tt[i + 4] == '#')
-				fl = i + 4;
-			else if ((fl - 1) >= 0 && tt[fl - 1] == '#')
-				fl = fl - 1;
+			if ((i + 4) < 20 && tt[i + 4] == '#')
+				c++;
+			if ((i - 4) > -1 && tt[i - 4] == '#')
+				c++;
+			if ((i + 1) < 20 && tt[i + 1] == '#')
+				c++;
+			if ((i - 1) > -1 && tt[i - 1] == '#')
+				c++;
 		}
-		i++;
-	}
+	if (c < 6)
+		return (-1);
+	return (0);
 }
 
 int		lstoper(t_list **new, char *tt, int nt)
 {
 	t_list	*tmp;
 	int		s;
-
-	s = conmi(tt);
+	
+	lastch(tt);
 	tmp = *new;
 	while (tmp)
 	{
@@ -48,55 +50,60 @@ int		lstoper(t_list **new, char *tt, int nt)
 		tmp = tmp->next;
 	}
 	CHECK(tmp = (t_list*)malloc(sizeof(t_list)));
-	CHECK(tmp->content = ft_strdup(tt));
+	CHECK(tmp->content = ft_strsplit(tt, '\n'));
 	tmp->content_size = nt;
 	tmp->next = NULL;
 	ft_lstadd(left, tmp);
 }
 
-int		checkmatet(char *tt, int *nt)
+int		checkmatet(char *tt, int *nt, int *st, t_list **tetra)
 {
-	int		i;
-	int		t;
-	char	*tmp;
-	t_list	*new;
+	int i;
+	int a;
+	int n;
 
-	tet = 0;
-	i = -1;
-	while (tt[++i])
-		if (i == 15)
-		{
-			*nt++;
-			if (nt > 26)
-				return (-1);//+free
-			t = flstoper(&new, tt, nt);
-		}
+	a = 0;
+	i = 0;
+	st = 0;
+	if (tt[20] == '\n')
+		st = 1;
+	while(tt[++i] && i < 20)
+	{
+		if (tt[i] != '.' || tt[i] != '#' || tt[i] != '\n')
+			return (-1);//free
+		if (tt[i] == '#' || tt[i] == '\n')
+			a++;
+	}
+	if (tt[4] == '\n' && tt[9] == '\n' && tt[14] == '\n' && tt[19] == '\n')
+		a++;
+	if (a != 9)
+		return (-1);
+	lstoper(*tetra, tt, nt);
+	nt++;
 	return (0);
 }
 
-int		fil(int fd, int a, char *line)
+int		fil(int fd, int a, int st, int nt)
 {
 	char	*tt;
-	int		nt;
-	char	*tmp;
 	int		i;
-
-	CHECK(tt = ft_strnew(0));
-	nt = 0;
-	while ((a = get_next_line(fd, &line)))
+	t_list	*tetra;
+	
+	CHECK(tt = ft_strnew(21));
+	i = -1;
+	while ((a = read(fd, tt, 21)))
 	{
-		i = -1;
-		if (a == -1)
-			return (-1);//+free line and maybe other
-		CHECK(tmp = ft_strjoin(*tt, line));//+add free
-		free(*tt);
-		*tt = tmp;
-		while (line[++i])
-			if (i > 3 || line[i] != '.' || line[i] != '#')
-				return (-1);//+free
-		a = checkmatet(&tt, &nt);
-		free(line);
+		if (a == -1 || a < 20)
+			return (-1);//free
+		checkmatet(tt, &nt, &st, &tetra);
+		if (nt > 26)
+			return (-1);//free
 	}
+	if (nt < 1)
+		return (-1);
+	if (st == 1)
+		return (-1);//free
+	return (0);
 }
 
 int		main(int ac, char **av)
@@ -104,7 +111,7 @@ int		main(int ac, char **av)
 	int fd;
 	int st;
 	int a;
-	char *line;
+	int	nt;
 
 	if (ac == 2)
 	{
@@ -112,7 +119,8 @@ int		main(int ac, char **av)
 			ERROR;
 		a = 0;
 		line = NULL;
-		st = fil(fd, a, line);
+		nt = 0;
+		st = fil(fd, a, st, nt);
 		if (close(fd) == -1 || st == -1)
 			ERROR;
 		return (0);

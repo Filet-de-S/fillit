@@ -2,12 +2,15 @@
 T = tetramino;
 
 0) check for ac == 2;
-1)	Go and check all T for its valid values: by reading the file and check 
-	whem.
+1)	Go and check all T for its valid values:
 																				
-	1. make a T checker with all possible combinations by .txt? 
-		calculate 1-26;
-	//and give a name to each? like #### = 1; ### = 2;
+	1. check for at least 20 bytes = min 4x4 T.sqare –DONE (fil, read);
+	2. check max # in T –DONE (checkmatet);
+	3. check for OK lines
+	4. check for 
+
+
+
 	2. create a buffer with translated T to A, B..
 	3. place up, left. for first horiz, or vert...
 	
