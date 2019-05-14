@@ -1,21 +1,8 @@
 .
 T = tetramino;
 
-0) check for ac == 2;
-1)	Go and check all T for its valid values:
-																				
-	1. check for at least 20 bytes = min 4x4 T.sqare –DONE (fil, read);
-	2. check max # in T –DONE (checkmatet);
-	3. check for OK lines
-	4. check for 
 
+ALGO:
+    1. try to place and count the free holes and square size; save the result.
+    2. compare, if equal – prioritize on leftUP position on first appearance.
 
-
-	2. create a buffer with translated T to A, B..
-	3. place up, left. for first horiz, or vert...
-	
-	
-2)	Translate every new tetra to Ax4.
-
-
-try to solve them by lo

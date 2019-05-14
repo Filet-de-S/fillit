@@ -1,6 +1,8 @@
 NAME = fillit
 
-SRC = main.c 
+SRC = main.c \
+	  extra.c \
+	  gogogo.c
 
 OBJ = $(SRC:.c=.o)
 

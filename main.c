@@ -12,52 +12,56 @@
 
 #include "fil.h"
 
-int		lastch(char *tt)
+int		lastch(char **tt, int nt)
 {
 	int i;
 	int c;
 
 	c = 0;
 	i = -1;
-	while (tt[++i])
-		if (tt[i] == '#')
+	while ((*tt)[++i])
+		if ((*tt)[i] == '#')
 		{
-			if ((i + 5) < 20 && tt[i + 5] == '#')
+			if ((i + 5) < 20 && (*tt)[i + 5] == '#')
 				c++;
-			if ((i - 5) > -1 && tt[i - 5] == '#')
+			if ((i - 5) > -1 && (*tt)[i - 5] == '#')
 				c++;
-			if ((i + 1) < 20 && tt[i + 1] == '#')
+			if ((i + 1) < 20 && (*tt)[i + 1] == '#')
 				c++;
-			if ((i - 1) > -1 && tt[i - 1] == '#')
+			if ((i - 1) > -1 && (*tt)[i - 1] == '#')
 				c++;
 		}
 	if (c < 6)
 		return (0);
+	i = -1;
+	while ((*tt)[++i])
+	    if ((*tt)[i] == '#')
+            (*tt)[i] = nt + 65;
 	return (1);
 }
 
-int		lstoper(t_list **tetra, char *tt, int nt)
+int		lstoper(t_f **tetra, char *tt, int nt)
 {
-	t_list	*tmp;
+	t_f     *tmp;
 	int		s;
 	
-	CHECK(s = lastch(tt));
+	CHECK(s = lastch(&tt, nt));
 	tmp = *tetra;
 	while (tmp)
 	{
-		if ((int)tmp->content_size == nt)
+		if (tmp->number == nt)
 			break ;
 		tmp = tmp->next;
 	}
-	CHECK(tmp = (t_list*)malloc(sizeof(t_list)));
+	CHECK(tmp = (t_f*)malloc(sizeof(t_f)));
 	CHECK(tmp->content = ft_strsplit(tt, '\n'));
-	tmp->content_size = nt;
+	tmp->number = nt;
 	tmp->next = NULL;
-	ft_lstadd(tetra, tmp);
+	ft_lstadd((t_list**)tetra, (t_list*)tmp);
 	return (1);
 }
 
-int		checkmatet(char *tt, int *nt, int *st, t_list **tetra)
+int		checkmatet(char *tt, int *nt, int *st, t_f **tetra)
 {
 	int i;
 	int a;
@@ -83,24 +87,7 @@ int		checkmatet(char *tt, int *nt, int *st, t_list **tetra)
 	return (0);
 }
 
-void	friwka(t_list **tetra, char **tt)
-{
-	t_list *tmp;
-	t_list *t;
-
-	free(*tt);
-	*tt = NULL;
-	tmp = *tetra;
-	while (tmp)
-	{
-		t = tmp->next;
-		free(tmp);
-		tmp = NULL;
-		tmp = t;
-	}
-}
-
-int		fil(int fd, int a, int st, t_list **tetra)
+int		fil(int fd, int a, int st, t_f **tetra)
 {
 	char	*tt;
 	int		i;
@@ -123,6 +110,7 @@ int		fil(int fd, int a, int st, t_list **tetra)
 		FREERET(tetra, &tt);
 	if (st == 1)
 		FREERET(tetra, &tt);
+	free(tt);
 	return (0);
 }
 
@@ -131,7 +119,7 @@ int		main(int ac, char **av)
 	int		fd;
 	int		st;
 	int		a;
-	t_list	*tetra;
+	t_f	*tetra;
 
 	if (ac == 2)
 	{
@@ -145,12 +133,9 @@ int		main(int ac, char **av)
 			ERROR;
 		}
 		else
-		{
-			free(tetra);
-			ft_putstr("ok");
-		}
+            gogogo(&tetra);
 		return (0);
 	}
-	ft_putstr("usage: ./fillit target_file\n");
-	return (0);
+    ft_putstr("usage: ./fillit target_file\n");
+    	return (0);
 }
