@@ -33,8 +33,13 @@ void	ft_lstaddendfil(t_f **alst, t_f *new)
 
     if (!alst || !new)
         return ;
+    if (!(*alst))
+    {
+        *alst = new;
+        return ;
+    }
     tmp = *alst;
-    while (tmp)
+    while (tmp->next)
         tmp = tmp->next;
     tmp->next = new;
 }

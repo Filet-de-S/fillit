@@ -18,14 +18,14 @@
 
 typedef struct		s_list1
 {
-    char			**content;
-    int		        number;
-    struct s_list1	*next;
+	char			**content;
+	int		        number;
+	struct s_list1	*next;
 }					t_f;
 
-int		main(int ac, char **av);
-void	friwka(t_f **tetra, char **tt);
+int     main(int ac, char **av);
+void    friwka(t_f **tetra, char **tt);
 void    gogogo(t_f **tetra);
-void	ft_lstaddendfil(t_f **alst, t_f *new);
+void    ft_lstaddendfil(t_f **alst, t_f *new);
 
 #endif

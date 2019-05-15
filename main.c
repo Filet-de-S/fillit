@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/06 12:47:28 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/14 16:25:59 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/15 14:57:27 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,16 +35,16 @@ int		lastch(char **tt, int nt)
 		return (0);
 	i = -1;
 	while ((*tt)[++i])
-	    if ((*tt)[i] == '#')
-            (*tt)[i] = nt + 65;
+		if ((*tt)[i] == '#')
+			(*tt)[i] = nt + 65;
 	return (1);
 }
 
 int		lstoper(t_f **tetra, char *tt, int nt)
 {
-	t_f     *tmp;
-	int		s;
-	
+	t_f *tmp;
+	int s;
+
 	CHECK(s = lastch(&tt, nt));
 	tmp = *tetra;
 	while (tmp)
@@ -53,11 +53,11 @@ int		lstoper(t_f **tetra, char *tt, int nt)
 			break ;
 		tmp = tmp->next;
 	}
-	CHECK(tmp = (t_f*)malloc(sizeof(t_f)));
+	CHECK(tmp = (t_f *)malloc(sizeof(t_f)));
 	CHECK(tmp->content = ft_strsplit(tt, '\n'));
 	tmp->number = nt;
 	tmp->next = NULL;
-	ft_lstadd((t_list**)tetra, (t_list*)tmp);
+	ft_lstaddendfil(tetra, tmp);
 	return (1);
 }
 
@@ -71,7 +71,7 @@ int		checkmatet(char *tt, int *nt, int *st, t_f **tetra)
 	*st = 0;
 	if (tt[20] == '\n')
 		*st = 1;
-	while(tt[++i] && i < 20)
+	while (tt[++i] && i < 20)
 	{
 		if (tt[i] != '.' && tt[i] != '#' && tt[i] != '\n')
 			return (-1);
@@ -92,7 +92,7 @@ int		fil(int fd, int a, int st, t_f **tetra)
 	char	*tt;
 	int		i;
 	int		nt;
-	
+
 	nt = 0;
 	CHECK(tt = ft_strnew(21));
 	i = -1;
@@ -119,7 +119,7 @@ int		main(int ac, char **av)
 	int		fd;
 	int		st;
 	int		a;
-	t_f	*tetra;
+	t_f		*tetra;
 
 	if (ac == 2)
 	{
@@ -129,13 +129,10 @@ int		main(int ac, char **av)
 		st = 0;
 		st = fil(fd, a, st, &tetra);
 		if (close(fd) == -1 || st == -1)
-		{
 			ERROR;
-		}
-		else
-            gogogo(&tetra);
+		gogogo(&tetra);
 		return (0);
 	}
-    ft_putstr("usage: ./fillit target_file\n");
-    	return (0);
+	ft_putstr("usage: ./fillit target_file\n");
+	return (0);
 }

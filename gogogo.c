@@ -15,15 +15,24 @@
 void    gogogo(t_f **tetra)
 {
     t_f *tmp;
+    int i;
+    int j;
 
     tmp = *tetra;
+    i = -1;
+    j = -1;
     while (tmp)
     {
-        while (*tmp->content) {
-            ft_putstr(*(tmp->content)++);
+        while (tmp->content[++i])
+        {
+            while (tmp->content[i][++j])
+                if (tmp->content[i][j] != '.')
+                    ft_putchar(tmp->content[i][j]);
+            j = -1;
             ft_putchar('\n');
         }
+        i = -1;
         tmp = tmp->next;
     }
-    ft_putstr("ok\n");
 }
+
