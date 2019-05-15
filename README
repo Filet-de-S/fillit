@@ -6,3 +6,5 @@ ALGO:
     1. try to place and count the free holes and square size; save the result.
     2. compare, if equal – prioritize on leftUP position on first appearance.
 
+
+	1. a) if map doesn't exists, create by sizing the 1st elem, then place
