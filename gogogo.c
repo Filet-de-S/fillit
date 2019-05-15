@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 18:26:50 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/15 17:03:21 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/15 18:17:46 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ void    gogogo(t_f **tetra)
         i = -1;
         tmp = tmp->next;
     }
-	while (*tetra)
-	{
-		tmp = *tetra;
-		*tetra = (*tetra)->next;
-		free(tmp);
-	}
+	addtetra(tetra);
 }
+
+void	addtetra(t_f **tetra);
