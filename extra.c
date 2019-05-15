@@ -6,7 +6,7 @@
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/05/14 18:27:15 by kkatelyn          #+#    #+#             */
-/*   Updated: 2019/05/15 15:18:38 by kkatelyn         ###   ########.fr       */
+/*   Updated: 2019/05/15 17:12:36 by kkatelyn         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void	friwka(t_f **tetra, char **tt)
     {
         t = (*tetra)->next;
         free(*tetra);
-        *tetra = NULL;
         *tetra = t;
     }
 }

@@ -1,10 +1,22 @@
-.
-T = tetramino;
+# **************************************************************************** #
 
+*T = tetramino;
+PLACE = place in first available mtrx;
 
 ALGO:
-    1. try to place and count the free holes and square size; save the result.
-    2. compare, if equal – prioritize on leftUP position on first appearance.
+    1. place; 
+	2. save the result: count the square size and free holes, consider *T's appearance;
 
 
-	1. a) if map doesn't exists, create by sizing the 1st elem, then place
+	1. 
+	a) if map doesn't exists, create by the size of 1st *T, then place it.
+	b) place next, if doesn't fit, try next till end, if not, place 2nd as 1st: REP.
+		if NOT & NOT, +sizeMAP, and again (1.a);
+
+	2. 
+	a) save the result: SIZExSIZE, free holes, UPLEFT pos. + *T's order.
+	b) do all possible variations by (1), save when is better than prev: !map++;
+	c) will stop when all var. are tried.
+
+	3. print;
+
