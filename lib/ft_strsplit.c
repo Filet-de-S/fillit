@@ -62,6 +62,6 @@ char			**ft_strsplit(char const *s, char c)
 		else
 			i++;
 	}
-	b[j] = 0;
+	b[j] = NULL;
 	return (b);
 }

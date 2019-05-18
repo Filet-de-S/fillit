@@ -9,7 +9,7 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME):
-	make -C lib/
+	make -C lib
 	gcc -g -Wall -Wextra -Werror $(SRC) -I lib/includes -L lib/ -lft -o $(NAME)
 
 clean:

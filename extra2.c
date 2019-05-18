@@ -100,42 +100,42 @@ char	**create_arr(int i, int j)
 char	**clip_figure(char **cnt, int *min, int *max)
 {
 	int	i;
-	int	j;
+	int	j
 	char **new_map;
 	
 	i = min[0];
 	j = min[1];
-	new_map = create_arr(max[1] - min[1], max[0] - min[0]);
+	new_map = create_arr(max[0] - min[0], max[1] - min[1]);
 	while (i <= max[0])
 	{
 		while (j <= max[1])
 		{
-			**(new_map)++ = cnt[i][j];
+			**new_map++ = cnt[i][j];
 			j++;
 		}
-		j = max[1];
-		(*new_map)++;
+		j = max[1]
+		*new_map++;
 		i++;
 	}
 	return (new_map);
 }
 
-/*char    **deleft(char **cnt, int *min, int *max) // пытаюсь отделить ненужное в хранении фигуры
+char    **deleft(char **cnt, int *min, int *max) // пытаюсь отделить ненужное в хранении фигуры
 {
-	int	i;
-	int	j;
+    int	i;
+    int	j;
 
-	i = 0;
+    i = 0;
 	j = 0;
-	while (cnt[i])
-	{
+    while (cnt[i])
+    {
 		while (cnt[i][j])
 		{
 			if (cnt[i][j] != '.')
 			{
-				if (min[0] > i || min[0] == -1)
+				if (min[0] > i)
 					min[0] = i;
-				if (min[1] > j || min[1] == -1)
+				if (min[1] > j)
 					min[1] = j;
 				if (max[0] < i)
 					max[0] = i;
@@ -147,10 +147,6 @@ char	**clip_figure(char **cnt, int *min, int *max)
 		j = 0;
 		i++;
 	}
-	write(1, &min[0], 1);
-	write(1, &min[1], 1);
-	write(1, &max[0], 1);
-	write(1, &max[1], 1);
-	cnt = clip_figure(cnt, min, max);
-	return (cnt);
-}*/
+	cnt = clip_figure(cnt, min, max)
+    return (cnt);
+}

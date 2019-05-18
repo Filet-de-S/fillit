@@ -1,0 +1,7 @@
+lldb fillit t.fillit
+breakpoint set -f extra.c -l 123
+run
+n - след шаг
+fr v - просмотр адресов всех переменных
+fr v cnt - просмотр значения переменной
+fr v cnt[1][0]

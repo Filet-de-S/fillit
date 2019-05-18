@@ -1,4 +1,19 @@
 # **************************************************************************** #
+log:
+16.05: added add.map;
+
+OUR FUNCTIONS:
+1. main.c = open file, check for valid, if ok, it'll call gogogo.c
+			and send to it our list;
+
+2. gogogo.c = at the moment nothing;
+3. extra.c =
+			void.friwka – for main.c to free in error case;
+			void.ft_lstaddendfil – to place new node in the end of list;
+			char**.add_map – returns MAP** with sizeXsize & filled by dots;
+			char**.size_plus – returns existing map with expanded lines;
+4. fillit.c =
+			
 
 *T = tetramino;
 PLACE = place in first available mtrx;
