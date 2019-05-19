@@ -12,7 +12,7 @@
 
 #ifndef FIL_H
 # define FIL_H
-# include "libft.h"
+# include "lib/includes/libft.h"
 # define ERROR { ft_putstr("error\n"); return (1); }
 # define FREERET(x, y) { friwka(x, y); return (-1); }
 
@@ -40,6 +40,6 @@ char    **size_plus(char **map, int k);
 t_fig	*get_figure(t_f **tetra, int nmb);
 int		placement_check(t_fig* figure, char ***map, int i, int j);
 int		move_figure(int nmb, char ***map, t_f **tetra);
-char    **deleft(char **cnt);//, int *min, int *max);
+t_fig	*deleft(t_fig *fig, int min, int max);
 
 #endif

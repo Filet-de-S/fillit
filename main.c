@@ -57,7 +57,9 @@ int		lstoper(t_f **tetra, char *tt, int nt)
 	CHECK(tmp = (t_f*)malloc(sizeof(t_f)));
 	CHECK(tmp->figure = (t_fig*)malloc(sizeof(t_fig)));
 	CHECK(tmp->figure->content = ft_strsplit(tt, '\n'));
-	CHECK(tmp->figure->content = deleft(tmp->figure->content));//, i, i));
+	tmp->figure->x = 0;
+    tmp->figure->y = 0;
+	CHECK(tmp->figure = deleft(tmp->figure, -1, -1));//, i, i));
 	//tmp->figure->x = 
 	//tmp->figure->y = 
 	tmp->number = nt;

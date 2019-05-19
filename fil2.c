@@ -95,9 +95,9 @@ int		move_figure(int nmb, char ***map, t_f **tetra) //ищет на карте �
 	{
 		while (*(map[i][j]))
 		{
-			if (*(map[i][j])) > 'A' + nmb - 1)
-				*(map[i][j])) = '.';
-			if (*(map[i][j])) == 'A' + nmb - 1)
+			if (*(map[i][j]) > 'A' + nmb - 1)
+				*(map[i][j]) = '.';
+			if (*(map[i][j]) == 'A' + nmb - 1)
 				if (placement_check(figure, map, i, j))
 					return (1);
 			j++;

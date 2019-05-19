@@ -70,41 +70,29 @@ int    gogogo(t_f **tetra)
         return (0);
 }*/
 
-char	**deleft(char **cnt)
+t_fig   *deleft(t_fig *fig, int i, int j)
 {
-    int i;
-    int j;
-
-    i = 3;
-    while (cnt[i])
+    while (fig->content[++i])
     {
         j = -1;
-        while (cnt[i][++j])
-            if (cnt[i][j] != '.')
-                break ;
-        if (j > 3)
-            ft_strdel(&cnt[i]);
-        else
-            break ;
-        i--;
-    }
-    i = 0;
-    while (cnt[i])
-    {
-        j = -1;
-        while (cnt[i][++j])
-            if (cnt[i][j] != '.')
-                break ;
-        if (j > 3)
-        {
-            while (cnt[i])
+        while (fig->content[i][++j])
+            if (fig->content[i][j] != '.')
             {
-                ft_strcpy(cnt[i], cnt[i + 1]);
-                i++;
+                fig->x++;
+                break ;
             }
-            i = -1;
-        }
-        i++;
     }
-    return (cnt);
+    j = -1;
+    while (++j < 4)
+    {
+        i = -1;
+        while (++i < 4)
+            if (fig->content[i][j] != '.')
+            {
+                fig->y++;
+                break ;
+            }
+    }
+   // fig = er_fil(fig);
+    return (fig);
 }
