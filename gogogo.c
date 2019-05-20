@@ -25,7 +25,7 @@ int     algo(t_f **tetra, char **map, int nmb)
     {
         if (placement_check(figure, map, 0, 0))
             return (algo(tetra, map, ++nmb));
-        while (!(i = move_figure(--nmb, map, tetra)))
+        while ((i = move_figure(--nmb, map, tetra)) > -1)
             if (i == 1)
                 return (algo(tetra, map, ++nmb));
         return (algo(tetra, map, --nmb));
