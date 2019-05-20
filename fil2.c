@@ -29,15 +29,7 @@ int		check_dot(char	**map, int i, int j, t_fig *figure)
 	int x1;
 	int y;
 
-			y = 0;
-			while (figure->content[x][y] == '.') // to check shift to the left of map (save in structure of fig)
-				y++;
-			// add figure->y1 –––– total len of y;
-			x = 0;
-			while (figure->content[x]) // 2check shift to bottom (save in structure of fig)
-				x++;
-
-	x1 = ft_strlen(map) - i; // length of bottom available
+	x1 = ft_strlen(*map) - i; // length of bottom available
 	if (figure->y > j || figure->x > x1)
 		return (0);
 	x1 = -1;
@@ -63,7 +55,6 @@ int		check_dot(char	**map, int i, int j, t_fig *figure)
 int	placement_check(t_fig *figure, char ***map, int i, int j)
 {
 	int x;
-	int y;
 
 	x = 0;
 	while (*(map[i]))

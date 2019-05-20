@@ -2,7 +2,8 @@ NAME = fillit
 
 SRC = main.c \
 	  extra.c \
-	  gogogo.c
+	  gogogo.c \
+	  fil2.c
 
 OBJ = $(SRC:.c=.o)
 
