@@ -75,13 +75,12 @@ int	placement_check(t_fig *figure, char **map, int i, int j1)
 					while (map[x1])
 						x1++; // length of bottom available
 					j1 = ft_strlen(*map);
-					if (figure->y > j || figure->x > (x1 - i) || figure->y1 > j1)
-						return (0);
-			}
-			if (map[i][j] == '.' && check_dot(map, i, j, figure))
-			{
-				place_dot(map, i, j, figure);
-				return (1);
+					if (!(figure->y > j || figure->x > (x1 - i) || figure->y1 > j1) &&
+						check_dot(map, i, j, figure))
+						{
+							place_dot(map, i, j, figure);
+							return (1);
+						}
 			}
 		}
 		j = -1;
