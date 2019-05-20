@@ -1,6 +1,6 @@
 #include "fil.h"
 
-void	place_dot(char	***map, int i, int j, t_fig *figure)
+void	place_dot(char	**map, int i, int j, t_fig *figure)
 {
 	int j1;
 	int x1;
@@ -9,12 +9,12 @@ void	place_dot(char	***map, int i, int j, t_fig *figure)
 	x1 = -1;
 	j1 = j - figure->y;
 	y = figure->y;
-	while (*(map[i]) && figure->content[++x1])
+	while (map[i] && figure->content[++x1])
 	{
-		while (*(map[i][j]) && figure->content[x1][++y])
+		while (map[i][j] && figure->content[x1][++y])
 		{
-			if (figure->content[x1][y] != '.' && *(map[i][j]) == '.')
-				*(map[i][j]) = figure->content[x1][y];
+			if (figure->content[x1][y] != '.' && map[i][j] == '.')
+				map[i][j] = figure->content[x1][y];
 			j++;
 		}
 		j = j1;
@@ -52,17 +52,16 @@ int		check_dot(char	**map, int i, int j, t_fig *figure)
 	return (1);
 }
 
-int	placement_check(t_fig *figure, char ***map, int i, int j)
+int	placement_check(t_fig *figure, char **map, int i, int j)
 {
 	int x;
-	char **tmap = *map;
 
 	x = 0;
-	while (tmap[i])
+	while (map[i])
 	{
 		j = -1;
-		while (tmap[i][++j])
-			if (tmap[i][j] == '.' && check_dot(*map, i, j, figure))
+		while (map[i][++j])
+			if (map[i][j] == '.' && check_dot(map, i, j, figure))
 			{
 				place_dot(map, i, j, figure);
 				return (1);
@@ -72,7 +71,7 @@ int	placement_check(t_fig *figure, char ***map, int i, int j)
 	return (0);
 }
 
-int		move_figure(int nmb, char ***map, t_f **tetra) //ищет на карте лишние тетрамины и затирает их, последнюю тетрамину сдвигает на следующее положение
+int		move_figure(int nmb, char **map, t_f **tetra) //ищет на карте лишние тетрамины и затирает их, последнюю тетрамину сдвигает на следующее положение
 {
 	int		i;
 	int		j;
@@ -83,13 +82,13 @@ int		move_figure(int nmb, char ***map, t_f **tetra) //ищет на карте �
 	figure = get_figure(tetra, &nmb);
 	i = 0;
 	j = 0;
-	while (*(map[i]))
+	while (map[i])
 	{
-		while (*(map[i][j]))
+		while (map[i][j])
 		{
-			if (*(map[i][j]) > 'A' + nmb - 1)
-				*(map[i][j]) = '.';
-			if (*(map[i][j]) == 'A' + nmb - 1)
+			if (map[i][j] > 'A' + nmb - 1)
+				map[i][j] = '.';
+			if (map[i][j] == 'A' + nmb - 1)
 				if (placement_check(figure, map, i, j))
 					return (1);
 			j++;

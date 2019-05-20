@@ -20,12 +20,12 @@ int     algo(t_f **tetra, char **map, int nmb)
     int i;
 
     if (nmb == -1 && (nmb = 1))
-        map = size_plus(&map, 0);
+        map = size_plus(map, 0);
     if ((figure = get_figure(tetra, &nmb)))
     {
-        if (placement_check(figure, &map, 0, 0))
+        if (placement_check(figure, map, 0, 0))
             return (algo(tetra, map, ++nmb));
-        while (!(i = move_figure(--nmb, &map, tetra)))
+        while (!(i = move_figure(--nmb, map, tetra)))
             if (i == 1)
                 return (algo(tetra, map, ++nmb));
         return (algo(tetra, map, --nmb));
@@ -34,6 +34,7 @@ int     algo(t_f **tetra, char **map, int nmb)
     while (map[i])
     {
         ft_putstr(map[i]);
+        ft_putchar('\n');
         free(map[i++]);
     }
     friwka (tetra, NULL);

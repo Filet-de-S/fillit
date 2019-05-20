@@ -60,26 +60,26 @@ char	**add_map(int size)
     return (map);
 }
 
-char    **size_plus(char ***map, int k)
+char    **size_plus(char **map, int k)
 {
     char    **tmp;
     int     i;
     int     j;
 
-    j = ft_strlen(**map);
+    j = ft_strlen(*map);
     tmp = add_map(j + 1);
     if (k == 1) // to save map and large it, but no neccessary at the moment;
     {
         i = 0;
-        while (*(map[i]))
+        while (map[i])
         {
-            ft_strcpy(tmp[i], *(map[i]));
+            ft_strcpy(tmp[i], map[i]);
             tmp[i][j] = '.';
             i++;
         }
     }
     i = 0;
-   // while (**(map[i]))
+   // while (*(map[i]))
    //     free(*(map[i++]));
     return (tmp);
 }
