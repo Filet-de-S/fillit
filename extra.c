@@ -54,7 +54,7 @@ char	**add_map(int size)
 	while (++i < size)
     {
         CHECKN(map[i] = (char*)malloc(sizeof(char) * (size + 1)));
-        map[i][size] = 0;
+        map[i][size] = '\0';
 		ft_memset(map[i], '.', size);
     }
     return (map);
@@ -79,8 +79,8 @@ char    **size_plus(char ***map, int k)
         }
     }
     i = 0;
-    while (*(map[i]))
-        free(*(map[i++]));
+   // while (**(map[i]))
+   //     free(*(map[i++]));
     return (tmp);
 }
 char	**create_arr(int i, int j)

@@ -55,13 +55,14 @@ int		check_dot(char	**map, int i, int j, t_fig *figure)
 int	placement_check(t_fig *figure, char ***map, int i, int j)
 {
 	int x;
+	char **tmap = *map;
 
 	x = 0;
-	while (*(map[i]))
+	while (tmap[i])
 	{
 		j = -1;
-		while (*(map[i][++j]))
-			if (*(map[i][j]) == '.' && check_dot(*map, i, j, figure))
+		while (tmap[i][++j])
+			if (tmap[i][j] == '.' && check_dot(*map, i, j, figure))
 			{
 				place_dot(map, i, j, figure);
 				return (1);
@@ -79,7 +80,7 @@ int		move_figure(int nmb, char ***map, t_f **tetra) //ищет на карте �
 
 	if (nmb == 0)
 		return (-1);
-	figure = get_figure(tetra, nmb);
+	figure = get_figure(tetra, &nmb);
 	i = 0;
 	j = 0;
 	while (*(map[i]))
@@ -99,17 +100,17 @@ int		move_figure(int nmb, char ***map, t_f **tetra) //ищет на карте �
 	return (0);
 }
 
-t_fig	*get_figure(t_f **tetra, int nmb)
+t_fig	*get_figure(t_f **tetra, int *nmb)
 {
 	t_f		*tmp;
 
 	tmp = *tetra;
-	if (nmb == 0)
-		nmb = 1;
-	if (nmb < 27)
+	if (*nmb == 0)
+		*nmb = 1;
+	if (*nmb < 27)
 		while (tmp)
 		{
-			if (tmp->number == nmb)
+			if (tmp->number == *nmb)
 				return (tmp->figure);
 			tmp = tmp->next;
 		}

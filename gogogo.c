@@ -21,7 +21,7 @@ int     algo(t_f **tetra, char **map, int nmb)
 
     if (nmb == -1 && (nmb = 1))
         map = size_plus(&map, 0);
-    if ((figure = get_figure(tetra, nmb)))
+    if ((figure = get_figure(tetra, &nmb)))
     {
         if (placement_check(figure, &map, 0, 0))
             return (algo(tetra, map, ++nmb));
