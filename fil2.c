@@ -11,11 +11,12 @@ void	place_dot(char	**map, int i, int j, t_fig *figure)
 	y = figure->y;
 	while (map[i] && figure->content[++x1])
 	{
-		while (map[i][j] && figure->content[x1][++y])
+		while (map[i][j] && figure->content[x1][y])
 		{
 			if (figure->content[x1][y] != '.' && map[i][j] == '.')
 				map[i][j] = figure->content[x1][y];
 			j++;
+			y++;
 		}
 		j = j1;
 		y = 0;
@@ -29,19 +30,22 @@ int		check_dot(char	**map, int i, int j, t_fig *figure)
 	int x1;
 	int y;
 
-	x1 = ft_strlen(*map) - i; // length of bottom available
-	if (figure->y > j || figure->x > x1)
+	x1 = i;
+	while (map[x1])
+		x1++; // length of bottom available
+	if (figure->y > j || figure->x > (x1 - 1))
 		return (0);
 	x1 = -1;
 	j1 = j - figure->y;
 	y = figure->y;
 	while (map[i] && figure->content[++x1])
 	{
-		while (map[i][j] && figure->content[x1][++y])
+		while (map[i][j] && figure->content[x1][y])
 		{
 			if (figure->content[x1][y] != '.' && map[i][j] != '.')
 				return (0);
 			j++;
+			y++;
 		}
 		if (y != figure->y1)
 			return (0);
