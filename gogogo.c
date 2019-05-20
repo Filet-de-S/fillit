@@ -13,7 +13,7 @@
 #include "fil.h"
 #include <stdio.h>
 
-/*
+
 int     algo(t_f **tetra, char **map, int nmb)
 {
     t_fig *figure;
@@ -39,13 +39,13 @@ int     algo(t_f **tetra, char **map, int nmb)
     friwka (tetra, NULL);
     return (1);
 }
-*/
 
 int    gogogo(t_f **tetra)
 {
-    t_f *map;
+    char **map;
 
-    map = *tetra;
+/*
+    tmp = *tetra;
     while (map)
     {
         while (*(map->figure->content))
@@ -55,9 +55,7 @@ int    gogogo(t_f **tetra)
     }
     return (1);
 }
-
-/*
-
+*/
 
     if (!(map = add_map(2)))
     {
@@ -68,9 +66,59 @@ int    gogogo(t_f **tetra)
         return (1);
     else
         return (0);
-}*/
+}
 
-t_fig   *deleft(t_fig *fig, int i, int j)
+t_fig   *er_fil(t_fig *fig, int i, int j, int i1)
+{
+    char **end;
+    int j1;
+    int j2;
+
+    CHECKN(end = (char**)malloc(sizeof(char*) * (fig->x + 1)));
+    end[fig->x] = 0;
+    while (++i < fig->x)
+        CHECKN(end[i] = ft_strnew(fig->y1));
+    //now define the dot from where we write
+    i = -1;
+    while (fig->content[++i])
+    {
+        j = -1;
+        while (fig->content[i][++j])
+            if (fig->content[i][j] != '.')
+                break ;
+        if (j < 4)
+            break ;
+    }
+    fig->y = j;
+    i1 = i;
+    j = -1;
+    while (++j < 4)
+    {
+        i = i1 - 1;
+        while (++i < 4)
+            if (fig->content[i][j] != '.')
+                break ;
+        if (i < 4)
+            break ;
+    }
+    j2 = j1 = j;
+
+    //write cut figure
+    i = -1;
+    while (++i < fig->x)
+    {
+        j = -1;
+        j2 = j1;
+        while (++j < fig->y1)
+            end[i][j] = fig->content[i1][j2++];
+        i1++;
+    }
+    //free(fig->content++......)
+    fig->content = end;
+    return (fig);
+}
+
+t_fig   *deleft(t_fig *fig, int i, int j) //to know the size of figure
 {
     while (fig->content[++i])
     {
@@ -89,10 +137,10 @@ t_fig   *deleft(t_fig *fig, int i, int j)
         while (++i < 4)
             if (fig->content[i][j] != '.')
             {
-                fig->y++;
+                fig->y1++;
                 break ;
             }
     }
-   // fig = er_fil(fig);
+    fig = er_fil(fig, -1, -1, 0);
     return (fig);
 }

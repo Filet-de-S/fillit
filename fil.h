@@ -36,7 +36,7 @@ void    friwka(t_f **tetra, char **tt);
 int		gogogo(t_f **tetra);
 void    ft_lstaddendfil(t_f **alst, t_f *new);
 char	**add_map(int size);
-char    **size_plus(char **map, int k);
+char    **size_plus(char ***map, int k);
 t_fig	*get_figure(t_f **tetra, int nmb);
 int		placement_check(t_fig* figure, char ***map, int i, int j);
 int		move_figure(int nmb, char ***map, t_f **tetra);
