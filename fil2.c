@@ -33,7 +33,7 @@ int		check_dot(char	**map, int i, int j, t_fig *figure)
 	x1 = i;
 	while (map[x1])
 		x1++; // length of bottom available
-	if (figure->y > j || figure->x > (x1 - 1))
+	if (figure->y > j || (figure->x - 1) > (x1 - i - 1))
 		return (0);
 	x1 = -1;
 	j1 = j - figure->y;

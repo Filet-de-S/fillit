@@ -114,7 +114,7 @@ t_fig   *er_fil(t_fig *fig, int i, int j, int i1)
         i1++;
     }
     while (end[0][fig->y] == '.')
-        fig->y1++;
+        fig->y++;
     //free(fig->content++......)
     fig->content = end;
     return (fig);
