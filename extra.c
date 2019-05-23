@@ -54,8 +54,8 @@ char	**add_map(int size)
 	while (++i < size)
     {
         CHECKN(map[i] = (char*)malloc(sizeof(char) * (size + 1)));
-        map[i][size] = '\0';
-		ft_memset(map[i], '.', size);
+        ft_memset(map[i], '.', size);
+		map[i][size] = '\0';
     }
     return (map);
 }
