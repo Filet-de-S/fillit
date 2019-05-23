@@ -18,11 +18,25 @@ int     algo(t_f **tetra, char **map, int nmb)
 {
     t_fig *figure;
     int i;
+    int f;
+    int j;
 
+    f = 0;
+    i = -1;
+    j = 0;
     if (nmb == -1 && (nmb = 1))
         map = size_plus(map, 0);
     if ((figure = get_figure(tetra, &nmb)))
     {
+        while (map[++i])
+        {
+            j = -1;
+            while (map[i][++j])
+                if (map[i][j] == '.')
+                    f++;
+        }
+        if (f < 4)
+            return (algo(tetra, map, -1));
         if (placement_check(figure, map, 0, 0))
             return (algo(tetra, map, ++nmb));
         while ((i = move_figure(--nmb, map, tetra)) > -1)
