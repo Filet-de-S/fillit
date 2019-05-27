@@ -60,9 +60,7 @@ int		lstoper(t_f **tetra, char *tt, int nt)
 	tmp->figure->x = 0;
     tmp->figure->y1 = 0;
     tmp->figure->y = 0;
-	CHECK(tmp->figure = deleft(tmp->figure, -1, -1));//, i, i));
-	//tmp->figure->x = 
-	//tmp->figure->y = 
+	CHECK(tmp->figure = deleft(tmp->figure, -1, -1));
 	tmp->number = nt;
 	tmp->next = NULL;
 	ft_lstaddendfil(tetra, tmp);

@@ -14,15 +14,19 @@
 
 void	friwka(t_f **tetra, char **tt)
 {
-    t_f *t;
-
+    t_f		*t;
+	char	**con;
     if (tt)
         free(*tt);
     while (*tetra)
     {
         t = (*tetra)->next;
-        free(*tetra);
-        *tetra = t;
+		con = (*tetra)->figure->content;
+		while (*con)
+			free(*con++);
+		free((*tetra)->figure);
+		free(*tetra);
+		*tetra = t;
     }
 }
 
@@ -43,11 +47,17 @@ void	ft_lstaddendfil(t_f **alst, t_f *new)
     tmp->next = new;
 }
 
-char	**add_map(int size)
+char	**add_map(int size, char **maps)
 {
 	char **map;
 	int i;
 
+	if (maps)
+	{
+		size = ft_strlen(*maps) + 1;
+		while (*maps)
+			free(*maps++);
+	}
 	i = -1;
 	CHECKN(map = (char**)malloc(sizeof(char*) * (size + 1)));
 	map[size] = 0;
@@ -59,98 +69,3 @@ char	**add_map(int size)
     }
     return (map);
 }
-
-char    **size_plus(char **map, int k)
-{
-    char    **tmp;
-    int     i;
-    int     j;
-
-    j = ft_strlen(*map);
-    tmp = add_map(j + 1);
-    if (k == 1) // to save map and large it, but no neccessary at the moment;
-    {
-        i = 0;
-        while (map[i])
-        {
-            ft_strcpy(tmp[i], map[i]);
-            tmp[i][j] = '.';
-            i++;
-        }
-    }
-    i = 0;
-   // while (*(map[i]))
-   //     free(*(map[i++]));
-    return (tmp);
-}
-char	**create_arr(int i, int j)
-{
-	int index;
-	char **arr;
-	
-	index = 0;
-	arr = (char**)malloc(j * sizeof(char*));
-	while (index < i)
-	{
-		arr[index] = (char*)malloc(i * sizeof(char));
-		index++;
-	}
-	return (arr);
-}
-char	**clip_figure(char **cnt, int *min, int *max)
-{
-	int	i;
-	int	j;
-	char **new_map;
-	
-	i = min[0];
-	j = min[1];
-	new_map = create_arr(max[1] - min[1], max[0] - min[0]);
-	while (i <= max[0])
-	{
-		while (j <= max[1])
-		{
-			**(new_map)++ = cnt[i][j];
-			j++;
-		}
-		j = max[1];
-		(*new_map)++;
-		i++;
-	}
-	return (new_map);
-}
-
-/*char    **deleft(char **cnt, int *min, int *max) // пытаюсь отделить ненужное в хранении фигуры
-{
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (cnt[i])
-	{
-		while (cnt[i][j])
-		{
-			if (cnt[i][j] != '.')
-			{
-				if (min[0] > i || min[0] == -1)
-					min[0] = i;
-				if (min[1] > j || min[1] == -1)
-					min[1] = j;
-				if (max[0] < i)
-					max[0] = i;
-				if (max[1] < j)
-					max[1] = j;
-			}
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	write(1, &min[0], 1);
-	write(1, &min[1], 1);
-	write(1, &max[0], 1);
-	write(1, &max[1], 1);
-	cnt = clip_figure(cnt, min, max);
-	return (cnt);
-}*/

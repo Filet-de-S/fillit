@@ -25,7 +25,7 @@ int     algo(t_f **tetra, char **map, int nmb)
     i = -1;
     j = 0;
     if (nmb == -1 && (nmb = 1))
-        map = size_plus(map, 0);
+        map = add_map(0, map);
     if ((figure = get_figure(tetra, &nmb)))
     {
         while (map[++i])
@@ -44,12 +44,11 @@ int     algo(t_f **tetra, char **map, int nmb)
                 return (algo(tetra, map, ++nmb));
         return (algo(tetra, map, --nmb));
     }
-    i = 0;
-    while (map[i])
+    while (*map)
     {
-        ft_putstr(map[i]);
+        ft_putstr(*map);
         ft_putchar('\n');
-        free(map[i++]);
+        free(*map++);
     }
     friwka (tetra, NULL);
     return (1);
@@ -72,7 +71,7 @@ int    gogogo(t_f **tetra)
 }
 */
 
-    if (!(map = add_map(2)))
+    if (!(map = add_map(2, NULL)))
     {
        friwka(tetra, NULL);
        ft_putstr("error\n");
@@ -129,7 +128,9 @@ t_fig   *er_fil(t_fig *fig, int i, int j, int i1)
     }
     while (end[0][fig->y] == '.')
         fig->y++;
-    //free(fig->content++......)
+    i = 0;
+    while (fig->content[i])
+        free(fig->content[i++]);
     fig->content = end;
     return (fig);
 }

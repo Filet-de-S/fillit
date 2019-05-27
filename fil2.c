@@ -1,6 +1,6 @@
 #include "fil.h"
 
-void	place_dot(char	**map, int i, int j, t_fig *figure)
+int		place_dot(char	**map, int i, int j, t_fig *figure)
 {
 	int j1;
 	int x1;
@@ -22,6 +22,7 @@ void	place_dot(char	**map, int i, int j, t_fig *figure)
 		y = 0;
 		i++;
 	}
+	return (1);
 }
 
 int		check_dot(char	**map, int i, int j, t_fig *figure)
@@ -71,16 +72,12 @@ int	placement_check(t_fig *figure, char **map, int i, int j1)
 		{
 			if (map[i][j] == '.')
 			{
-					x1 = i;
-					while (map[x1])
-						x1++; // length of bottom available
-					j1 = ft_strlen(*map);
-					if (!(figure->y > j || figure->x > (x1 - i) || figure->y1 > j1) &&
-						check_dot(map, i, j, figure))
-						{
-							place_dot(map, i, j, figure);
-							return (1);
-						}
+				x1 = i;
+				while (map[x1])
+					x1++; // length of bottom available
+				j1 = ft_strlen(map[0]);
+				if (!(figure->y > j || figure->x > (x1 - i) || figure->y1 > j1) && check_dot(map, i, j, figure))
+					return (place_dot(map, i, j, figure));
 			}
 		}
 		j = -1;
@@ -89,7 +86,7 @@ int	placement_check(t_fig *figure, char **map, int i, int j1)
 	return (0);
 }
 
-int		move_figure(int nmb, char **map, t_f **tetra) //ищет на карте лишние тетрамины и затирает их, последнюю тетрамину сдвигает на следующее положение
+int		move_figure(int nmb, char **map, t_f **tetra)
 {
 	int		i;
 	int		j;
@@ -120,37 +117,6 @@ int		move_figure(int nmb, char **map, t_f **tetra) //ищет на карте л
 		return (1);
 	return (0);
 }
-
-
-/*
-int		move_figure(int nmb, char **map, t_f **tetra) //ищет на карте лишние тетрамины и затирает их, последнюю тетрамину сдвигает на следующее положение
-{
-	int		i;
-	int		j;
-	t_fig	*figure;
-
-	if (nmb == 0)
-		return (-1);
-	figure = get_figure(tetra, &nmb);
-	i = 0;
-	j = 0;
-	while (map[i])
-	{
-		while (map[i][j])
-		{
-			if (map[i][j] > 'A' + nmb - 1)
-				map[i][j] = '.';
-			if (map[i][j] == 'A' + nmb - 1)
-				if (placement_check(figure, map, i, j))
-					return (1);
-			j++;
-		}
-		j = 0;
-		i++;
-	}
-	return (0);
-}
-*/
 
 t_fig	*get_figure(t_f **tetra, int *nmb)
 {
