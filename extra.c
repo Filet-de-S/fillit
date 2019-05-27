@@ -47,7 +47,7 @@ void	ft_lstaddendfil(t_f **alst, t_f *new)
     tmp->next = new;
 }
 
-char	**add_map(int size, char **maps)
+char	**size_map(int size, char **maps)
 {
 	char **map;
 	int i;

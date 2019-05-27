@@ -24,9 +24,9 @@ int     algo(t_f **tetra, char **map, int nmb)
     f = 0;
     i = -1;
     j = 0;
-    if (nmb == -1 && (nmb = 1))
-        map = add_map(0, map);
-    if ((figure = get_figure(tetra, &nmb)))
+    if (nmb == -1 && (nmb = 1)) //
+        map = size_map(0, map);
+    if ((figure = get_figure(tetra, &nmb))) // получаем фигуру
     {
         while (map[++i])
         {
@@ -35,14 +35,14 @@ int     algo(t_f **tetra, char **map, int nmb)
                 if (map[i][j] == '.')
                     f++;
         }
-        if (f < 4)
+        if (f < 4) // если своб клеток меньше 4
             return (algo(tetra, map, -1));
-        if (placement_check(figure, map, 0, 0))
+        if (placement_check(figure, map, 0, 0)) // пробую поставить фигуру
             return (algo(tetra, map, ++nmb));
-        while ((i = move_figure(--nmb, map, tetra)) > -1)
+        while ((i = move_figure(--nmb, map, tetra)) > -1) // если нет, пробую переставить предыдущую, пока не попробую все локации включая 1ую фигуру
             if (i == 1)
                 return (algo(tetra, map, ++nmb));
-        return (algo(tetra, map, --nmb));
+        return (algo(tetra, map, --nmb)); // если нет, запустит алгоритм с -1 и расширит карту
     }
     while (*map)
     {
@@ -71,7 +71,7 @@ int    gogogo(t_f **tetra)
 }
 */
 
-    if (!(map = add_map(2, NULL)))
+    if (!(map = size_map(2, NULL)))
     {
        friwka(tetra, NULL);
        ft_putstr("error\n");
