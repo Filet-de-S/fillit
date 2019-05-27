@@ -14,6 +14,7 @@
 #include <stdio.h>
 
 
+
 int     algo(t_f **tetra, char **map, int nmb)
 {
     t_fig *figure;
@@ -23,8 +24,7 @@ int     algo(t_f **tetra, char **map, int nmb)
 
     f = 0;
     i = -1;
-    j = 0;
-    if (nmb == -1 && (nmb = 1)) //
+    if (nmb == -1 && (nmb = 1))
         map = size_map(0, map);
     if ((figure = get_figure(tetra, &nmb))) // получаем фигуру
     {
@@ -35,14 +35,14 @@ int     algo(t_f **tetra, char **map, int nmb)
                 if (map[i][j] == '.')
                     f++;
         }
-        if (f < 4) // если своб клеток меньше 4
+        if (f < 4) // если своб клеток меньше 4, расширяем карту
             return (algo(tetra, map, -1));
-        if (placement_check(figure, map, 0, 0)) // пробую поставить фигуру
-            return (algo(tetra, map, ++nmb));
-        while ((i = move_figure(--nmb, map, tetra)) > -1) // если нет, пробую переставить предыдущую, пока не попробую все локации включая 1ую фигуру
-            if (i == 1)
+        if (placement_check(figure, map, 0, 0)) // если получается, ставлю фигуру
+            return (algo(tetra, map, ++nmb)); // return (++nmb);
+        while ((i = move_figure(--nmb, map, tetra)) > -1) // нет? пробую переставить предыдущую, пока не попробую все локации включая 1ую фигуру
+            if (i == 1) // если фигуру удалось переставить
                 return (algo(tetra, map, ++nmb));
-        return (algo(tetra, map, --nmb)); // если нет, запустит алгоритм с -1 и расширит карту
+        return (-1); // если нет, расширяем карту и снова с 0
     }
     while (*map)
     {
@@ -51,35 +51,23 @@ int     algo(t_f **tetra, char **map, int nmb)
         free(*map++);
     }
     friwka (tetra, NULL);
-    return (1);
+    return (-2);
 }
 
 int    gogogo(t_f **tetra)
 {
     char **map;
-
-/*
-    tmp = *tetra;
-    while (map)
-    {
-        while (*(map->figure->content))
-            printf("%s\n", (*(map->figure->content)++));
-        printf("\n");
-        map = map->next;
-    }
-    return (1);
-}
-*/
+    int i;
 
     if (!(map = size_map(2, NULL)))
     {
        friwka(tetra, NULL);
        ft_putstr("error\n");
     }
-    if (algo(tetra, map, 0))
-        return (1);
-    else
-        return (0);
+    i = 1;
+    while (i > -2)
+        i = algo(tetra, map, i);
+    return (i == 0 ? 0 : 1);
 }
 
 t_fig   *er_fil(t_fig *fig, int i, int j, int i1)
