@@ -38,7 +38,7 @@ int     algo(t_f **tetra, char **map, int nmb)
         if (f < 4) // если своб клеток меньше 4, расширяем карту
             return (algo(tetra, map, -1));
         if (placement_check(figure, map, 0, 0)) // если получается, ставлю фигуру
-            return (algo(tetra, map, ++nmb)); // return (++nmb);
+            return (++nmb); // return (algo(tetra, map, ++nmb))
         while ((i = move_figure(--nmb, map, tetra)) > -1) // нет? пробую переставить предыдущую, пока не попробую все локации включая 1ую фигуру
             if (i == 1) // если фигуру удалось переставить
                 return (algo(tetra, map, ++nmb));
