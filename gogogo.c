@@ -15,15 +15,18 @@
 
 
 
-int     algo(t_f **tetra, char **map, int nmb)
+int     algo(t_f **tetra, int nmb)
 {
     t_fig *figure;
     int i;
     int f;
     int j;
+    static char **map;
 
     f = 0;
     i = -1;
+    if (!map)
+        map = size_map(2, NULL);
     if (nmb == -1 && (nmb = 1))
         map = size_map(0, map);
     if ((figure = get_figure(tetra, &nmb))) // получаем фигуру
@@ -36,12 +39,12 @@ int     algo(t_f **tetra, char **map, int nmb)
                     f++;
         }
         if (f < 4) // если своб клеток меньше 4, расширяем карту
-            return (algo(tetra, map, -1));
+            return (algo(tetra, -1));
         if (placement_check(figure, map, 0, 0)) // если получается, ставлю фигуру
             return (++nmb); // return (algo(tetra, map, ++nmb))
         while ((i = move_figure(--nmb, map, tetra)) > -1) // нет? пробую переставить предыдущую, пока не попробую все локации включая 1ую фигуру
             if (i == 1) // если фигуру удалось переставить
-                return (algo(tetra, map, ++nmb));
+                return (algo(tetra, ++nmb));
         return (-1); // если нет, расширяем карту и снова с 0
     }
     while (*map)
@@ -66,7 +69,7 @@ int    gogogo(t_f **tetra)
     }
     i = 1;
     while (i > -2)
-        i = algo(tetra, map, i);
+        i = algo(tetra, i);
     return (i == 0 ? 0 : 1);
 }
 
