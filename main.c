@@ -44,7 +44,6 @@ int		lstoper(t_f **tetra, char *tt, int nt)
 {
 	t_f *tmp;
 	int s;
-//	int i[2] = {-1, -1};
 
 	CHECK(s = lastch(&tt, nt));
 	tmp = *tetra;

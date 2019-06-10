@@ -27,9 +27,9 @@ int     algo(t_f **tetra, int nmb)
     i = -1;
     if (!map)
         map = size_map(2, NULL);
-    while (map[++i])
-        ft_putendl(map[i]);
-    ft_putchar('\n');
+  //  while (map[++i])
+  //      ft_putendl(map[i]);
+   // ft_putchar('\n');
     i = -1;
     if (nmb == -1 && (nmb = 1))
         map = size_map(0, map);
