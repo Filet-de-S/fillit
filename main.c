@@ -40,12 +40,12 @@ int		lastch(char **tt, int nt)
 	return (1);
 }
 
-int		lstoper(t_f **tetra, char *tt, int nt)
+void	lstoper(t_f **tetra, char *tt, int nt)
 {
 	t_f *tmp;
 	int s;
 
-	CHECK(s = lastch(&tt, nt));
+	CHEXIT(s = lastch(&tt, nt));
 	tmp = *tetra;
 	while (tmp)
 	{
@@ -53,17 +53,16 @@ int		lstoper(t_f **tetra, char *tt, int nt)
 			break ;
 		tmp = tmp->next;
 	}
-	CHECK(tmp = (t_f*)malloc(sizeof(t_f)));
-	CHECK(tmp->figure = (t_fig*)malloc(sizeof(t_fig)));
-	CHECK(tmp->figure->content = ft_strsplit(tt, '\n'));
+	CHEXIT(tmp = (t_f*)malloc(sizeof(t_f)));
+	CHEXIT(tmp->figure = (t_fig*)malloc(sizeof(t_fig)));
+	CHEXIT(tmp->figure->content = ft_strsplit(tt, '\n'));
 	tmp->figure->x = 0;
     tmp->figure->y1 = 0;
     tmp->figure->y = 0;
-	CHECK(tmp->figure = deleft(tmp->figure, -1, -1));
+	CHEXIT(tmp->figure = deleft(tmp->figure, -1, -1));
 	tmp->number = nt;
 	tmp->next = NULL;
 	ft_lstaddendfil(tetra, tmp);
-	return (1);
 }
 
 int		checkmatet(char *tt, int *nt, int *st, t_f **tetra)
@@ -88,7 +87,7 @@ int		checkmatet(char *tt, int *nt, int *st, t_f **tetra)
 	if (a != 9)
 		return (-1);
 	(*nt)++;
-	ERR(lstoper(tetra, tt, *nt));
+	lstoper(tetra, tt, *nt);
 	return (0);
 }
 
@@ -99,22 +98,22 @@ int		fil(int fd, int a, int st, t_f **tetra)
 	int		nt;
 
 	nt = 0;
-	CHECK(tt = ft_strnew(21));
+	CHEXIT(tt = ft_strnew(21));
 	i = -1;
 	while ((a = read(fd, tt, 21)))
 	{
 		if (a == -1 || a < 20)
-			FREERET(tetra, &tt);
+			ERROR;
 		tt[a] = '\0';
 		if ((a = checkmatet(tt, &nt, &st, tetra)) == -1)
-			FREERET(tetra, &tt);
+			ERROR;
 		if (nt > 26)
-			FREERET(tetra, &tt);
+			ERROR;
 	}
 	if (nt < 1)
-		FREERET(tetra, &tt);
+		ERROR;
 	if (st == 1)
-		FREERET(tetra, &tt);
+		ERROR;
 	free(tt);
 	return (nt);
 }
@@ -133,11 +132,10 @@ int		main(int ac, char **av)
 		a = 0;
 		st = 0;
 		st = fil(fd, a, st, &tetra);
-		if (close(fd) == -1 || st == -1)
+		if (close(fd) == -1)
 			ERROR;
 		if (!gogogo(&tetra))
 			ERROR;
-		return (0);
 	}
 	ft_putstr("usage: ./fillit target_file\n");
 	return (0);

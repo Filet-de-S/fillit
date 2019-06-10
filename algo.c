@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   gogogo.c                                           :+:      :+:    :+:   */
+/*   algo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "fil.h"
-#include <stdio.h>
-
-
 
 int     algo(t_f **tetra, int nmb)
 {
@@ -27,9 +24,6 @@ int     algo(t_f **tetra, int nmb)
     i = -1;
     if (!map)
         map = size_map(2, NULL);
-  //  while (map[++i])
-  //      ft_putendl(map[i]);
-   // ft_putchar('\n');
     i = -1;
     if (nmb == -1 && (nmb = 1))
         map = size_map(0, map);
@@ -52,13 +46,8 @@ int     algo(t_f **tetra, int nmb)
         return (-1); // если нет, расширяем карту и снова с 0
     }
     while (*map)
-    {
-        ft_putstr(*map);
-        ft_putchar('\n');
-        free(*map++);
-    }
-    friwka (tetra, NULL);
-    return (-2);
+        ft_putendl(*map++);
+    exit (0);
 }
 
 int    gogogo(t_f **tetra)
