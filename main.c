@@ -57,9 +57,9 @@ void	lstoper(t_f **tetra, char *tt, int nt)
 	CHEXIT(tmp->figure = (t_fig*)malloc(sizeof(t_fig)));
 	CHEXIT(tmp->figure->content = ft_strsplit(tt, '\n'));
 	tmp->figure->x = 0;
-    tmp->figure->y1 = 0;
-    tmp->figure->y = 0;
-	CHEXIT(tmp->figure = deleft(tmp->figure, -1, -1));
+	tmp->figure->y1 = 0;
+	tmp->figure->y = 0;
+	CHEXIT(tmp->figure = cutfigure(tmp->figure, -1, -1));
 	tmp->number = nt;
 	tmp->next = NULL;
 	ft_lstaddendfil(tetra, tmp);

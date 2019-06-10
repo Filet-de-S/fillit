@@ -103,7 +103,7 @@ static int		delme(t_list **left, t_list **tmp, char ***line)
 	return (1);
 }
 
-int		get_next_line(const int fd, char **line)
+int			get_next_line(const int fd, char **line)
 {
 	static t_list	*left;
 	t_list			*tmp;

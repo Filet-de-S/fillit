@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   algofunc.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kkatelyn <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/06/10 17:48:21 by kkatelyn          #+#    #+#             */
+/*   Updated: 2019/06/10 17:48:24 by kkatelyn         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fil.h"
 
-int		place_dot(char	**map, int i, int j, t_fig *figure)
+int		place_dot(char **map, int i, int j, t_fig *figure)
 {
 	int j1;
 	int x1;
@@ -25,20 +37,12 @@ int		place_dot(char	**map, int i, int j, t_fig *figure)
 	return (1);
 }
 
-int		check_dot(char	**map, int i, int j, t_fig *figure)
+int		check_dot(char **map, int i, int j, t_fig *figure)
 {
 	int j1;
 	int x1;
 	int y;
 
-	/*
-	x1 = i;
-	while (map[x1])
-		x1++; // length of bottom available
-	j1 = ft_strlen(*map);
-	if (figure->y > j || figure->x > (x1 - i) || figure->y1 > j1)
-		return (0);
-	*/
 	x1 = -1;
 	j1 = j - figure->y;
 	y = figure->y;
@@ -60,29 +64,27 @@ int		check_dot(char	**map, int i, int j, t_fig *figure)
 	return (1);
 }
 
-int	placement_check(t_fig *figure, char **map, int i, int j1)
+int		placement_check(t_fig *f, char **map, int i, int j1)
 {
 	int j;
 	int x1;
 
 	j = j1 - 1;
-	while (map[i])
+	while (map[++i])
 	{
 		while (map[i][++j])
-		{
 			if (map[i][j] == '.')
 			{
 				x1 = i;
 				while (map[x1])
-					x1++; // length of bottom available
+					x1++;
 				j1 = ft_strlen(map[0]);
-				if (!(figure->y > j || figure->x > (x1 - i) || figure->y1 > j1) && check_dot(map, i, j, figure))
-					return (place_dot(map, i, j, figure));
+				if (!(f->y > j || f->x > (x1 - i) || f->y1 > j1)
+				&& check_dot(map, i, j, f))
+					return (place_dot(map, i, j, f));
 			}
-		}
 		j = -1;
-		i++;
-	}	
+	}
 	return (0);
 }
 
@@ -103,15 +105,12 @@ int		move_figure(int nmb, char **map, t_f **tetra)
 	{
 		j = -1;
 		while (map[i][++j])
-			if (map[i][j] == 'A' + nmb - 1)
-			{
-				map[i][j] = '.';
+			if (map[i][j] == 'A' + nmb - 1 && (map[i][j] = '.'))
 				if (i1 == -1)
 				{
 					i1 = i;
 					j1 = j + 1;
 				}
-			}
 	}
 	if (placement_check(figure, map, i1, j1))
 		return (1);

@@ -19,12 +19,12 @@ void	ft_lstaddend(t_list **alst, t_list *new)
 	if (!alst || !new)
 		return ;
 	tmp = *alst;
-    if (!(*alst))
-    {
-        *alst = new;
-        return ;
-    }
+	if (!(*alst))
+	{
+		*alst = new;
+		return ;
+	}
 	while (tmp->next)
-        tmp = tmp->next;
+		tmp = tmp->next;
 	tmp->next = new;
 }

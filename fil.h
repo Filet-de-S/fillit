@@ -32,14 +32,14 @@ typedef struct		s_list2
 	struct s_list2	*next;
 }					t_f;
 
-int		main(int ac, char **av);
-void	friwka(t_f **tetra, char **tt);
-int		gogogo(t_f **tetra);
-void	ft_lstaddendfil(t_f **alst, t_f *new);
-char	**size_map(int size, char **maps);
-t_fig	*get_figure(t_f **tetra, int *nmb);
-int		placement_check(t_fig *figure, char **map, int i, int j);
-int		move_figure(int nmb, char **map, t_f **tetra);
-t_fig	*deleft(t_fig *fig, int min, int max);
+int					main(int ac, char **av);
+void				friwka(t_f **tetra, char **tt);
+int					gogogo(t_f **tetra);
+void				ft_lstaddendfil(t_f **alst, t_f *new);
+char				**size_map(char **maps);
+t_fig				*get_figure(t_f **tetra, int *nmb);
+int					placement_check(t_fig *figure, char **map, int i, int j);
+int					move_figure(int nmb, char **map, t_f **tetra);
+t_fig				*cutfigure(t_fig *fig, int min, int max);
 
 #endif

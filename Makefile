@@ -3,7 +3,7 @@ NAME = fillit
 SRC = main.c \
 	  extra.c \
 	  algo.c \
-	  algo3x.c
+	  algofunc.c
 
 OBJ = $(SRC:.c=.o)
 
