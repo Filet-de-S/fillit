@@ -11,7 +11,8 @@ all: $(NAME)
 
 $(NAME):
 	make -C lib
-	gcc -g -Wall -Wextra -Werror $(SRC) -I lib/includes -L lib/ -lft -o $(NAME)
+	gcc -g -Wall -Wextra -Werror $(SRC) -I lib/includes -L lib/ -lft
+	
 
 clean:
 	rm -f $(OBJ)

@@ -112,7 +112,7 @@ int		move_figure(int nmb, char **map, t_f **tetra)
 					j1 = j + 1;
 				}
 	}
-	if (placement_check(figure, map, i1, j1))
+	if (placement_check(figure, map, --i1, j1))
 		return (1);
 	return (0);
 }
