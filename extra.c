@@ -54,20 +54,22 @@ char	**size_map(char **maps)
 	int		i;
 	int		size;
 
+	i = 0;
 	if (maps)
 	{
 		size = ft_strlen(*maps) + 1;
-		while (*maps)
-			free(*maps++);
+		while (i < size)
+			free(maps[i++]);
+		free(maps);
 	}
 	else
 		size = 2;
 	i = -1;
-	CHECKN(map = (char **)malloc(sizeof(char *) * (size + 1)));
+	CHEXIT(map = (char **)malloc(sizeof(char *) * (size + 1)));
 	map[size] = 0;
 	while (++i < size)
 	{
-		CHECKN(map[i] = (char *)malloc(sizeof(char) * (size + 1)));
+		CHEXIT(map[i] = (char *)malloc(sizeof(char) * (size + 1)));
 		ft_memset(map[i], '.', size);
 		map[i][size] = '\0';
 	}

@@ -125,6 +125,7 @@ int		main(int ac, char **av)
 	int		a;
 	t_f		*tetra;
 
+	tetra = NULL;
 	if (ac == 2)
 	{
 		if ((fd = open(av[1], O_RDONLY)) == -1)

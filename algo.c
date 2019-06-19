@@ -85,10 +85,10 @@ t_fig	*er_fil(t_fig *fig, int i, int j, int i1)
 	int		j1;
 	int		j2;
 
-	CHECKN(end = (char **)malloc(sizeof(char *) * (fig->x + 1)));
+	CHEXIT(end = (char **)malloc(sizeof(char *) * (fig->x + 1)));
 	end[fig->x] = 0;
 	while (++i < fig->x)
-		CHECKN(end[i] = ft_strnew(fig->y1));
+		CHEXIT(end[i] = ft_strnew(fig->y1));
 	defdots(fig->content, &j1, &i1);
 	i = -1;
 	while (++i < fig->x)
@@ -99,11 +99,11 @@ t_fig	*er_fil(t_fig *fig, int i, int j, int i1)
 			end[i][j] = fig->content[i1][j2++];
 		i1++;
 	}
-	while (end[0][fig->y] == '.')
+	while ((i = -1) && (end[0][fig->y] == '.'))
 		fig->y++;
-	i = 0;
-	while (fig->content[i])
-		free(fig->content[i++]);
+	while (fig->content[++i])
+		free(fig->content[i]);
+	free(fig->content);
 	fig->content = end;
 	return (fig);
 }
